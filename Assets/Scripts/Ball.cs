@@ -38,6 +38,12 @@ public class Ball : MonoBehaviour
         if(collision.gameObject.tag == "FallCheck")
         {
             GameManager.instance.restart();
-        } 
+        }
+        else if(collision.gameObject.tag == "Brick")
+        {
+            Destroy(collision.gameObject);
+            // GameManager.instance.score++;
+        }
+
     }
 }
