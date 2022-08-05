@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
     }
 
     void StartBounce() {
-        Vector2 randomDirection = new Vector2(Random.Range(-1, 1), 1);
+        Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         rb.AddForce(randomDirection * bounceForce, ForceMode2D.Impulse);
     }
 
