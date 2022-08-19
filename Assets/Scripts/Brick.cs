@@ -10,17 +10,10 @@ public class Brick : MonoBehaviour
         GameManager.instance.brickCount++;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnDestroy()
     {
         GameManager.instance.brickCount--;
-        if(GameManager.instance.brickCount == 0)
-        {
-            GameManager.instance.restart();
-        }
+        // Debug.Log("On destroyed: "+ GameManager.instance.brickCount.ToString());
+
     }
 }

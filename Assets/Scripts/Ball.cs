@@ -12,11 +12,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -29,8 +25,11 @@ public class Ball : MonoBehaviour
     }
 
     void StartBounce() {
-        Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        rb.AddForce(randomDirection * bounceForce, ForceMode2D.Impulse);
+        float x = Random.Range(-1f, 1f);
+        float y = 1f;
+        Debug.Log(x + " " + y);
+        Vector2 randomDirection = new Vector2(x, y);
+        rb.AddForce(randomDirection.normalized * bounceForce, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,7 +41,20 @@ public class Ball : MonoBehaviour
         else if(collision.gameObject.tag == "Brick")
         {
             Destroy(collision.gameObject);
+            // Debug.Log("Brick Destroyed: "+ GameManager.instance.brickCount.ToString());
+            if(GameManager.instance.brickCount == 1)
+            {
+                GameManager.instance.next();
+            }
             // GameManager.instance.score++;
+        }
+
+        else  if(collision.gameObject.tag == "Paddle")
+        {
+            float hitPosY = transform.position.y - collision.transform.position.y;
+
+            // Vector2 newPos = new Vector2(rb.velocity.x, rb.velocity.y + hitPosY);
+            rb.velocity = Quaternion.AngleAxis(0, Vector2.up);
         }
 
     }

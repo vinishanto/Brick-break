@@ -13,20 +13,19 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void next()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerPrefs.SetString("level", SceneManager.GetActiveScene().name);
     }
 
     public void restart()
     {
         SceneManager.LoadScene("Intro");
+    }
+
+    public void RestartSelf()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

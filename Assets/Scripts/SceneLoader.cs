@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void LoadScene(string sceneName)
+    private string Getlevel() {
+        // PlayerPrefs.DeleteAll();
+        if(PlayerPrefs.HasKey("level")) {
+            return PlayerPrefs.GetString("level");
+        } else {
+            return "Level1";
+        }
+    }
+    public void LoadScene()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(Getlevel());
     }
 }
