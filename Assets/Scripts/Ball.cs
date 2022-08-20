@@ -8,9 +8,12 @@ public class Ball : MonoBehaviour
     public float bounceForce;
     private bool hasStarted = false;
 
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
 
@@ -27,7 +30,6 @@ public class Ball : MonoBehaviour
     void StartBounce() {
         float x = Random.Range(-1f, 1f);
         float y = 1f;
-        Debug.Log(x + " " + y);
         Vector2 randomDirection = new Vector2(x, y);
         rb.AddForce(randomDirection.normalized * bounceForce, ForceMode2D.Impulse);
     }
@@ -51,11 +53,34 @@ public class Ball : MonoBehaviour
 
         else  if(collision.gameObject.tag == "Paddle")
         {
-            float hitPosY = transform.position.y - collision.transform.position.y;
-
-            // Vector2 newPos = new Vector2(rb.velocity.x, rb.velocity.y + hitPosY);
-            rb.velocity = Quaternion.AngleAxis(0, Vector2.up);
+            int bounceAngle = FindAngle();
+            Debug.Log("Bounce Angle: " + Mathf.Cos((Mathf.PI / 180) * 90).ToString());
+            Debug.Log("Bounce Angle: " + Mathf.Sin(90).ToString());
+            Vector2 hitDirection = new Vector2(Mathf.Cos((Mathf.PI / 180) * bounceAngle), 1).normalized;
+            rb.velocity = hitDirection * bounceForce;
+            
         }
 
+    }
+
+    private int FindAngle() {
+        float BallPos = transform.position.x;
+        float PaddlePos = GameObject.FindGameObjectWithTag("Paddle").transform.position.x;
+        float meetPoint = PaddlePos - BallPos;
+        float paddleLength = GameObject.FindGameObjectWithTag("Paddle").transform.localScale.x;
+
+        float quad = 0;
+        // var quadrant = paddleLength/8;
+        if(meetPoint < 0) {
+            meetPoint = -meetPoint;
+            quad = 90 - (meetPoint / (paddleLength / 2) * 70);
+        }
+        else {
+            quad = 90 + (meetPoint / (paddleLength / 2) * 70);
+        }
+        Debug.Log("Bounce Angle: " + quad.ToString());
+        Debug.Log("Meet Point: " + meetPoint.ToString());
+                
+        return (int) quad;
     }
 }
