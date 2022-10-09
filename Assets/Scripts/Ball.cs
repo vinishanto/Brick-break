@@ -20,7 +20,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!hasStarted  && Input.anyKeyDown)
+        if(!hasStarted  && Input.GetMouseButtonUp(0))
         {
             StartBounce();
             hasStarted = true; 
@@ -29,8 +29,7 @@ public class Ball : MonoBehaviour
 
     void StartBounce() {
         float x = Random.Range(-1f, 1f);
-        float y = 1f;
-        Vector2 randomDirection = new Vector2(x, y);
+        Vector2 randomDirection = new Vector2(x, 1f);
         rb.AddForce(randomDirection.normalized * bounceForce, ForceMode2D.Impulse);
     }
 
@@ -54,8 +53,6 @@ public class Ball : MonoBehaviour
         else  if(collision.gameObject.tag == "Paddle")
         {
             int bounceAngle = FindAngle();
-            Debug.Log("Bounce Angle: " + Mathf.Cos((Mathf.PI / 180) * 90).ToString());
-            Debug.Log("Bounce Angle: " + Mathf.Sin(90).ToString());
             Vector2 hitDirection = new Vector2(Mathf.Cos((Mathf.PI / 180) * bounceAngle), 1).normalized;
             rb.velocity = hitDirection * bounceForce;
             

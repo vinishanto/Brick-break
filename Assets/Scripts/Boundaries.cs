@@ -43,13 +43,13 @@ public class Boundaries : MonoBehaviour
 
     // Creating a physics material bounce 
     // and attaching it to the colliders
-        PhysicsMaterial2D bounce = new PhysicsMaterial2D();
-        bounce.bounciness = 1f;
-        bounce.friction = 0f;
+        // PhysicsMaterial2D bounce = new PhysicsMaterial2D();
+        // bounce.bounciness = 1f;
+        // bounce.friction = 0f;
 
-        topCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
-        rightCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
-        leftCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
+        // topCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
+        // rightCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
+        // leftCollider.GetComponent<BoxCollider2D>().sharedMaterial = bounce;
 
            
     //Generate world space point information for position and scale calculations
